@@ -30,7 +30,11 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file',
                                     filename=filename))
-    return '''
+    
+    filedir = '/Users/jerry/uploads'
+    list_dir = os.listdir(filedir)
+    list_dir.sort()
+    html_front = '''
     <!doctype html>
     <title>Upload new File</title>
     <h1>Upload new File</h1>
@@ -39,4 +43,6 @@ def upload_file():
       <input type=submit value=Upload>
     </form>
     '''
-
+    for file_name in list_dir:
+        html_front = html_front + '''<p><a href=''' + file_name + '''</a></p>'''
+    return html_front
